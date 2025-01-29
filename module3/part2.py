@@ -3,7 +3,7 @@ def main():
     current_hour = int(input('Enter current hour of the day using 24 hour time: '))
     # get wait time
     wait_hours = int(input('Enter wait time in hours: '))
-    # add times together and take the modulus of 24
+    # add times together, modulo 24
     alarm_time = (current_hour + wait_hours) % 24
     if alarm_time < 0:
         # adjust for negative numbers
