@@ -1,7 +1,8 @@
 """
 1. Asks the user for the current time of day as an integer using 24-hour time, as follows:
-  - An input of 0 is midnight
-  - An input between 1 and 12, inclusive, represents an AM time, e.g. 1 is 1 AM
+  - An input of 0 is equivalent to 12 AM (midnight)
+  - An input between 1 and 11, inclusive, represents an AM time, e.g. 1 is 1 AM
+  - An input of 12 is equivalent 12 PM (noon).
   - An input between 13 and 23, inclusive, represents a PM time, offset by 12, e.g. 13 is 1 PM
   - Inputs greater than 23 are equivalent to a 24-hour time of the input modulo 24.
     For example, an input of 24 is equivalent to 24 % 24 = 0 (midnight),
