@@ -1,3 +1,8 @@
+"""
+Asks the user to enter the price of a meal as a float.
+Multiplies this by 18% to get the tip and 7% to get the sales tax.
+Prints the tip, sales tax, and total price (sum of the 3 numbers).
+"""
 def main():
     # hard-coded constants
     tip_pct = .18
