@@ -21,16 +21,25 @@ class ItemToPurchase:
         self.item_quantity = item_quantity
 
     """
+    String representation including total cost, e.g. "Bottled Water 10 @ $1 = $10"
+    """
+    def __str__(self):
+        return f'{self.item_name} {self.item_quantity} @ ${self.item_price:.2f} = ${self.get_item_cost():.2f}'
+
+    def __repr__(self):
+        return f"ItemsToPurchase(item_name={self.item_name}, item_price={self.item_price}, item_quantity={self.item_quantity})"
+
+    def __eq__(self, other):
+        return self.item_name == other.item_name and self.item_quantity == other.item_quantity and self.item_price == other.item_price
+
+    def __hash__(self):
+        return hash((self.item_name, self.item_quantity, self.item_price))
+
+    """
     Returns total cost as a float (item_price * item_quantity) 
     """
     def get_item_cost(self):
         return self.item_price * self.item_quantity
-
-    """
-    String representation including total cost, e.g. "Bottled Water 10 @ $1 = $10"
-    """
-    def __str__(self):
-         return f'{self.item_name} {self.item_quantity} @ ${self.item_price:.2f} = ${self.get_item_cost():.2f}'
 
     """
     Print string representation. 
@@ -69,6 +78,5 @@ def main():
     print("TOTAL COST")
     print_total_cost(item1, item2)
 
-# test
 if __name__ == "__main__":
     main()
