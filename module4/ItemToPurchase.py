@@ -24,7 +24,7 @@ class ItemToPurchase:
     def __str__(self):
         return f'{self.item_name} {self.item_quantity} @ ${self.item_price:.2f} = ${self.get_item_cost():.2f}'
 
-    """Return the total cost as a float (item_price * item_quantity) """
+    """Return the total cost as a float (item_price * item_quantity)."""
     def get_item_cost(self):
         return self.item_price * self.item_quantity
 
@@ -48,7 +48,7 @@ def input_item():
     item.item_quantity = int(input("Enter the item quantity: "))
     return item
 
-"""Prompt user for two items and create two objects of the ItemToPurchase class."""
+"""Prompt user for two items, create two objects of the ItemToPurchase class, and output summary with total cost."""
 if __name__ == "__main__":
     print("Item 1")
     item1 = input_item()
