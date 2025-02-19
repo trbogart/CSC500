@@ -1,4 +1,75 @@
-from module6.ItemToPurchase import ItemToPurchase
+DefaultItemName = "none"
+DefaultItemDescription = 'none'
+DefaultItemPrice = 0.0
+DefaultItemQuantity = 0
+
+"""
+An item to purchase.
+Attributes:
+- item_name: item name (string, default "none")
+- item_price: item price (float, default 0.0)
+- item_quantity: item quantity (int, default 0)
+- item_description: item description (string, default "none")
+Methods:
+- get_item_cost(): returns total cost (item_price * item_quantity)
+- print_item_cost(): print description including total cost as a float, e.g. "Bottled Water 10 @ $1 = $10"
+"""
+class ItemToPurchase:
+    """
+    Construct a new item to purchase.
+    - item_name: item name (string, default "none")
+    - item_price: item price (float, default 0.0)
+    - item_quantity: item quantity (int, default 0)
+    - item_description: item description (string, default "none")
+    """
+    def __init__(self,
+                 item_name: str = DefaultItemName,
+                 item_price: float = DefaultItemPrice,
+                 item_quantity: int = DefaultItemQuantity,
+                 item_description: str = DefaultItemDescription
+                 ):
+        self.item_name = item_name
+        self.item_price = item_price
+        self.item_quantity = item_quantity
+        self.item_description = item_description
+
+    """Return the total cost as a float (item_price * item_quantity)."""
+    def get_item_cost(self):
+        return self.item_price * self.item_quantity
+
+    """Print the item name, quantity, price, and total cost, e.g. 'Bottled Water 10 @ $1 = $10..'"""
+    def print_item_cost(self):
+        print(f'{self.item_name} {self.item_quantity} @ ${self.item_price:.2f} = ${self.get_item_cost():.2f}')
+
+    """Print item name and description, e.g. 'Nike Romaleos: Volt color, Weightlifting shoes'"""
+    def print_description(self):
+        print(f'{self.item_name}: {self.item_description}')
+
+    """Modify item from another item, except for name and attributes with default values."""
+    def modify_from_item(self, other):
+        if other.item_price != DefaultItemPrice:
+            self.item_price = other.item_price
+        if other.item_quantity != DefaultItemQuantity:
+            self.item_quantity = other.item_quantity
+        if other.item_description != DefaultItemDescription:
+            self.item_description = other.item_description
+
+"""Prints a list of items including the total cost."""
+def print_total_cost(*items: ItemToPurchase):
+    total_cost = 0.0
+    for item in items:
+        item.print_item_cost()
+        total_cost += item.get_item_cost()
+    print(f"Total: ${total_cost:.2f}")
+
+
+"""Prompts the user to input an item to purchase."""
+def input_item():
+    item = ItemToPurchase()
+    item.item_name = input("Enter the item name: ")
+    item.item_price = float(input("Enter the item price: "))
+    item.item_quantity = int(input("Enter the item quantity: "))
+    return item
 
 """
 Shopping cart
@@ -6,14 +77,6 @@ Attributes:
 - customer_name (string) - Initialized in default constructor to "none"
 - current_date (string) - Initialized in default constructor to "January 1, 2020"
 - cart_items (list of ItemToPurchase) - Cart items
-Methods:
-- add_items()
-  - 
-- remove_item()
-- modify_item()
-- get_num_items_in_cart()
-  - Returns quantity of all items in cart. Has no parameters.
-
 """
 class ShoppingCart:
     """
@@ -99,6 +162,9 @@ class ShoppingCart:
         for item in self.cart_items:
             item.print_description()
 
+"""
+Populate shopping cart with some default items for testing.
+"""
 def add_default_items(shopping_cart):
     shopping_cart.add_item(
         ItemToPurchase(
@@ -165,13 +231,8 @@ def print_menu(shopping_cart: ShoppingCart):
 
 """Creates a shopping cart and display menu for user to manipulate it until they quit."""
 if __name__ == "__main__":
-    # TODO ask user for name and date
-    customer_name = 'John Doe' # input("Enter customer's name: ")
-    current_date = 'January 1, 2020' # input("Enter today's date: ")
-    shopping_cart = ShoppingCart(customer_name, current_date)
-
-    # add default values for module 6 milestone (TODO remove)
+    # use hard-coded name and date for now
+    shopping_cart = ShoppingCart('John Doe', 'January 1, 2020')
+    # add default values for now
     add_default_items(shopping_cart)
-
     print_menu(shopping_cart)
-
