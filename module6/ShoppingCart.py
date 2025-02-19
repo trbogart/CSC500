@@ -68,14 +68,12 @@ class ShoppingCart:
     Returns quantity of all items in cart. Has no parameters.
     """
     def get_num_items_in_cart(self):
-        # TODO sum, map, and lambda
         return sum(map(lambda x: x.item_quantity, self.cart_items))
 
     """
     Determines and returns the total cost of items in cart. Has no parameters.
     """
     def get_cost_of_cart(self):
-        # TODO sum and map
         return sum(map(lambda item: item.get_item_cost(), self.cart_items))
 
     """
@@ -86,11 +84,9 @@ class ShoppingCart:
         if len(self.cart_items) > 0:
             print(f'{self.customer_name}\'s Shopping Cart - {self.current_date}')
             print(f'Number of Items: {self.get_num_items_in_cart()}')
-            total = 0
             for item in self.cart_items:
                 item.print_item_cost()
-                total += item.get_item_cost()
-            print(f'Total: ${total:.2f}')
+            print(f'Total: ${self.get_cost_of_cart():.2f}')
         else:
             print('SHOPPING CART IS EMPTY')
 
