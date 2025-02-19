@@ -43,8 +43,8 @@ class ShoppingCart:
     If item name cannot be found, output this message: Item not found in cart. Nothing removed.
     """
     def remove_item(self, item_name: str):
-        for i in range(len(self.cart_items)):
-            if self.cart_items[i].item_name == item_name:
+        for i, item in enumerate(self.cart_items):
+            if item.item_name == item_name:
                 self.cart_items.pop(i)
                 break
         else:
@@ -57,9 +57,9 @@ class ShoppingCart:
     If item cannot be found (by name) in cart, output this message: Item not found in cart. Nothing modified.
     """
     def modify_item(self, item: ItemToPurchase):
-        for i in range(len(self.cart_items)):
-            if self.cart_items[i].item_name == item.item_name:
-                self.cart_items[i].modify_from_item(item)
+        for next_item in self.cart_items:
+            if next_item.item_name == item.item_name:
+                next_item.modify_from_item(item)
                 break
         else:
             print('Item not found in cart. Nothing modified.')
@@ -68,7 +68,7 @@ class ShoppingCart:
     Returns quantity of all items in cart. Has no parameters.
     """
     def get_num_items_in_cart(self):
-        return sum(map(lambda x: x.item_quantity, self.cart_items))
+        return sum(map(lambda item: item.item_quantity, self.cart_items))
 
     """
     Determines and returns the total cost of items in cart. Has no parameters.
