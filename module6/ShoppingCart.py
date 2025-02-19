@@ -165,11 +165,12 @@ def print_menu(shopping_cart: ShoppingCart):
 
 """Creates a shopping cart and display menu for user to manipulate it until they quit."""
 if __name__ == "__main__":
+    # TODO ask user for name and date
     customer_name = 'John Doe' # input("Enter customer's name: ")
     current_date = 'January 1, 2020' # input("Enter today's date: ")
     shopping_cart = ShoppingCart(customer_name, current_date)
 
-    # add default values for module 6 milestone
+    # add default values for module 6 milestone (TODO remove)
     add_default_items(shopping_cart)
 
     print_menu(shopping_cart)
