@@ -200,7 +200,7 @@ def print_menu(shopping_cart):
         print('a - Add item to cart')
         print('r - Remove item from cart')
         print('c - Change item quantity')
-        print('i - Output items\' descriptions')
+        print("i - Output items' descriptions")
         print('o - Output shopping cart')
         print('q - Quit')
         option = input('Choose an option: ')
