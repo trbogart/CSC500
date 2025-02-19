@@ -1,4 +1,4 @@
-from portfolio.ItemToPurchase import ItemToPurchase
+from module6.ItemToPurchase import ItemToPurchase
 
 """
 Shopping cart
