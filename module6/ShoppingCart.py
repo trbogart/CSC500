@@ -23,10 +23,10 @@ class ItemToPurchase:
     - item_description: item description (string, default "none")
     """
     def __init__(self,
-                 item_name: str = DefaultItemName,
-                 item_price: float = DefaultItemPrice,
-                 item_quantity: int = DefaultItemQuantity,
-                 item_description: str = DefaultItemDescription
+                 item_name = DefaultItemName,
+                 item_price = DefaultItemPrice,
+                 item_quantity = DefaultItemQuantity,
+                 item_description = DefaultItemDescription
                  ):
         self.item_name = item_name
         self.item_price = item_price
@@ -55,7 +55,7 @@ class ItemToPurchase:
             self.item_description = other.item_description
 
 """Prints a list of items including the total cost."""
-def print_total_cost(*items: ItemToPurchase):
+def print_total_cost(*items):
     total_cost = 0.0
     for item in items:
         item.print_item_cost()
@@ -91,21 +91,21 @@ class ShoppingCart:
     - item_quantity: item quantity (int, default 0)
     - item_description: item description (string, default "none")
     """
-    def __init__(self, customer_name: str = 'none', current_date: str = 'January 1, 2020'):
+    def __init__(self, customer_name = 'none', current_date = 'January 1, 2020'):
         self.customer_name = customer_name
         self.current_date = current_date
 
     """
     Adds an item to cart_items list. Has parameter ItemToPurchase. Does not return anything.
     """
-    def add_item(self, item: ItemToPurchase):
+    def add_item(self, item):
         self.cart_items.append(item)
 
     """
     Removes item from cart_items list. Has a string (an item's name) parameter. Does not return anything.
     If item name cannot be found, output this message: Item not found in cart. Nothing removed.
     """
-    def remove_item(self, item_name: str):
+    def remove_item(self, item_name):
         for i, item in enumerate(self.cart_items):
             if item.item_name == item_name:
                 self.cart_items.pop(i)
@@ -119,7 +119,7 @@ class ShoppingCart:
     If not, modify item in cart.
     If item cannot be found (by name) in cart, output this message: Item not found in cart. Nothing modified.
     """
-    def modify_item(self, item: ItemToPurchase):
+    def modify_item(self, item):
         for next_item in self.cart_items:
             if next_item.item_name == item.item_name:
                 next_item.modify_from_item(item)
@@ -194,7 +194,7 @@ def add_default_items(shopping_cart):
 """
 Prints a menu of commands for the user to manipulate the given shopping cart until the user quits.
 """
-def print_menu(shopping_cart: ShoppingCart):
+def print_menu(shopping_cart):
     while True:
         print('MENU')
         print('a - Add item to cart')
@@ -204,7 +204,13 @@ def print_menu(shopping_cart: ShoppingCart):
         print('o - Output shopping cart')
         print('q - Quit')
         option = input('Choose an option: ')
-        if option == 'a':
+        if option == 'o':
+            print("OUTPUT SHOPPING CART")
+            shopping_cart.print_total()
+        elif option == 'i':
+            print("OUTPUT ITEMS' DESCRIPTIONS")
+            shopping_cart.print_descriptions()
+        elif option == 'a':
             print('ADD ITEM TO CART')
             item_name = input("Enter the item name: ")
             item_description = input("Enter the item description: ")
@@ -220,12 +226,6 @@ def print_menu(shopping_cart: ShoppingCart):
             item_name = input("Enter the item name: ")
             item_quantity = int(input("Enter the new quantity: "))
             shopping_cart.modify_item(ItemToPurchase(item_name=item_name, item_quantity=item_quantity))
-        elif option == 'i':
-            print("OUTPUT ITEMS' DESCRIPTIONS")
-            shopping_cart.print_descriptions()
-        elif option == 'o':
-            print("OUTPUT SHOPPING CART")
-            shopping_cart.print_total()
         elif option == 'q':
             return
 
