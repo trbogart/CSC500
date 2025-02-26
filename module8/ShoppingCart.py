@@ -45,6 +45,7 @@ class ItemToPurchase:
     def print_description(self) -> None:
         print(f'{self.item_name}: {self.item_description}')
 
+
 """Prints a list of items including the total cost."""
 def print_total_cost(*items: ItemToPurchase) -> None:
     total_cost = 0.0
@@ -62,6 +63,7 @@ def input_item() -> ItemToPurchase:
     item.item_quantity = int(input("Enter the item quantity: "))
     return item
 
+
 """
 Shopping cart
 Attributes:
@@ -70,9 +72,6 @@ Attributes:
 - cart_items (list of ItemToPurchase) - Cart items
 """
 class ShoppingCart:
-    """
-    List of cart items (ItemToPurchase).
-    """
     cart_items = []
 
     """
@@ -158,10 +157,11 @@ class ShoppingCart:
         for item in self.cart_items:
             item.print_description()
 
+
 """
 Populate shopping cart with some default items for testing.
 """
-def add_default_items(shopping_cart: ShoppingCart) -> None:
+def populate_default_items(shopping_cart: ShoppingCart) -> None:
     shopping_cart.add_item(
         ItemToPurchase(
             item_name = 'Nike Romaleos',
@@ -227,7 +227,7 @@ def print_menu(shopping_cart: ShoppingCart) -> None:
         elif option == 'p':
             # hidden command for testing
             print('POPULATE TEST DATA')
-            add_default_items(shopping_cart)
+            populate_default_items(shopping_cart)
         elif option == 'x':
             # hidden command for testing
             print('CLEAR DATA')
@@ -235,8 +235,8 @@ def print_menu(shopping_cart: ShoppingCart) -> None:
         elif option == 'q':
             return
 
-"""Creates a shopping cart and display menu for user to manipulate it until they quit."""
 if __name__ == "__main__":
+    # Creates a shopping cart and display menu for user to manipulate it until they quit.
     customer_name = input("Enter customer's name:\n")
     current_date = input("Enter today's date:\n")
     shopping_cart = ShoppingCart(customer_name, current_date)
