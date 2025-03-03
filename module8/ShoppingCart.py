@@ -1,8 +1,3 @@
-DefaultItemName = "none"
-DefaultItemDescription = 'none'
-DefaultItemPrice = 0.0
-DefaultItemQuantity = 0
-
 """
 An item to purchase.
 Attributes:
@@ -15,6 +10,11 @@ Methods:
 - print_item_cost(): print description including total cost as a float, e.g. "Bottled Water 10 @ $1 = $10"
 """
 class ItemToPurchase:
+    DefaultItemName = "none"
+    DefaultItemDescription = 'none'
+    DefaultItemPrice = 0.0
+    DefaultItemQuantity = 0
+
     """
     Construct a new item to purchase.
     - item_name: item name (string, default "none")
@@ -45,24 +45,14 @@ class ItemToPurchase:
     def print_description(self) -> None:
         print(f'{self.item_name}: {self.item_description}')
 
-
-"""Prints a list of items including the total cost."""
-def print_total_cost(*items: ItemToPurchase) -> None:
-    total_cost = 0.0
-    for item in items:
-        item.print_item_cost()
-        total_cost += item.get_item_cost()
-    print(f"Total: ${total_cost:.2f}")
-
-
-"""Prompts the user to input an item to purchase."""
-def input_item() -> ItemToPurchase:
-    item = ItemToPurchase()
-    item.item_name = input("Enter the item name: ")
-    item.item_price = float(input("Enter the item price: "))
-    item.item_quantity = int(input("Enter the item quantity: "))
-    return item
-
+    """Modify item of this item from another item, ignoring default values."""
+    def modify_from_item(self, other) -> None:
+        if other.item_price != ItemToPurchase.DefaultItemPrice:
+            self.item_price = other.item_price
+        if other.item_quantity != ItemToPurchase.DefaultItemQuantity:
+            self.item_quantity = other.item_quantity
+        if other.item_description != ItemToPurchase.DefaultItemDescription:
+            self.item_description = other.item_description
 
 """
 Shopping cart
@@ -72,8 +62,6 @@ Attributes:
 - cart_items (list of ItemToPurchase) - Cart items
 """
 class ShoppingCart:
-    cart_items = []
-
     """
     Construct a new shopping cart.
     - customer_name: customer name (string, default "none")
@@ -82,6 +70,7 @@ class ShoppingCart:
     - item_description: item description (string, default "none")
     """
     def __init__(self, customer_name: str = 'none', current_date: str = 'January 1, 2020'):
+        self.cart_items = []
         self.customer_name = customer_name
         self.current_date = current_date
 
@@ -112,12 +101,7 @@ class ShoppingCart:
     def modify_item(self, item: ItemToPurchase) -> None:
         for next_item in self.cart_items:
             if next_item.item_name == item.item_name:
-                if item.item_price != DefaultItemPrice:
-                    next_item.item_price = item.item_price
-                if item.item_quantity != DefaultItemQuantity:
-                    next_item.item_quantity = item.item_quantity
-                if item.item_description != DefaultItemDescription:
-                    next_item.item_description = item.item_description
+                next_item.modify_from_item(item)
                 break
         else:
             print('Item not found in cart. Nothing modified.')
@@ -223,7 +207,8 @@ def print_menu(shopping_cart: ShoppingCart) -> None:
             print('CHANGE ITEM QUANTITY')
             item_name = input("Enter the item name: ")
             item_quantity = int(input("Enter the new quantity: "))
-            shopping_cart.modify_item(ItemToPurchase(item_name=item_name, item_quantity=item_quantity))
+            item = ItemToPurchase(item_name=item_name, item_quantity=item_quantity)
+            shopping_cart.modify_item(item)
         elif option == 'p':
             # hidden command for testing
             print('POPULATE TEST DATA')
@@ -239,5 +224,7 @@ if __name__ == "__main__":
     # Creates a shopping cart and display menu for user to manipulate it until they quit.
     customer_name = input("Enter customer's name:\n")
     current_date = input("Enter today's date:\n")
+    print(f"Customer name: {customer_name}")
+    print(f"Today's date: {current_date}")
     shopping_cart = ShoppingCart(customer_name, current_date)
     print_menu(shopping_cart)
