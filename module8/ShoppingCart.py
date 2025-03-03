@@ -198,7 +198,8 @@ def print_menu(shopping_cart: ShoppingCart) -> None:
             item_description = input("Enter the item description: ")
             item_price = float(input("Enter the item price: "))
             item_quantity = int(input("Enter the item quantity: "))
-            shopping_cart.add_item(ItemToPurchase(item_name, item_price, item_quantity, item_description))
+            item = ItemToPurchase(item_name, item_price, item_quantity, item_description)
+            shopping_cart.add_item(item)
         elif option == 'r':
             print('REMOVE ITEM FROM CART')
             item_name = input("Enter name of item to remove: ")
